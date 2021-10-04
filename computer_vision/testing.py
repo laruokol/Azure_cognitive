@@ -3,7 +3,12 @@ from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from computer_vision.text_analysis import TextAnalyzer
 from computer_vision.image_analysis import ImageAnalyzer
 from computer_vision.object_detection import ObjectDetector
-from collections import Counter
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+key = os.getenv("SERVICE_KEY")
+endpoint = os.getenv("ENDPOINT")
 
 creds = CognitiveServicesCredentials(key)
 service_client = ComputerVisionClient(endpoint, creds)
