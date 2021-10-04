@@ -5,8 +5,6 @@ from computer_vision.image_analysis import ImageAnalyzer
 from computer_vision.object_detection import ObjectDetector
 from collections import Counter
 
-key = "bcd10638e54c47b689ef8455dc2f3483"
-endpoint = "https://lr-cognitive.cognitiveservices.azure.com/"
 creds = CognitiveServicesCredentials(key)
 service_client = ComputerVisionClient(endpoint, creds)
 
