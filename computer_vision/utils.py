@@ -1,6 +1,21 @@
 from typing import Dict, List
 import os
+from azure.core.credentials import AzureKeyCredential
+from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
+
+
+def authenticate_client(
+    service_endpoint: str, service_key: str = None, cognitive_key: str = None
+):
+    if service_key is not None:
+        credential = AzureKeyCredential(service_key)
+    elif cognitive_key is not None:
+        credential = CognitiveServicesCredentials(cognitive_key)
+    text_analytics_client = ComputerVisionClient(
+        endpoint=service_endpoint, credential=credential
+    )
+    return text_analytics_client
 
 
 def analyze_image(

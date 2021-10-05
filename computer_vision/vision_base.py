@@ -1,16 +1,17 @@
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
-from msrest.authentication import CognitiveServicesCredentials
+from utils import authenticate
 import pandas as pd
 
 
 class BaseVision:
-    def __init__(self, service_key: str, service_endpoint: str) -> None:
+    def __init__(
+        self, service_endpoint: str, service_key: str = None, cognitive_key: str = None
+    ) -> None:
 
         self.vision_key = service_key
         self.url = service_endpoint
-        self.service_client = ComputerVisionClient(
-            self.url, CognitiveServicesCredentials(self.vision_key)
-        )
+        credentials = authenticate(service_key, cognitive_key)
+        self.service_client = ComputerVisionClient(self.url, credentials)
 
     def get_metadata(self, response):
         """

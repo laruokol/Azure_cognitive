@@ -3,7 +3,7 @@ from typing import Dict
 import os
 
 
-class TextAnalyzer(BaseVision):
+class TextDetector(BaseVision):
     """
     Help.
     """

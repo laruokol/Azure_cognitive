@@ -5,8 +5,10 @@ from collections import Counter
 
 
 class ObjectDetector(BaseVision):
-    def __init__(self, service_key: str, service_endpoint: str) -> None:
-        super().__init__(service_key, service_endpoint)
+    def __init__(
+        self, service_endpoint: str, service_key: str = None, cognitive_key: str = None
+    ) -> None:
+        super().__init__(service_endpoint, service_key, cognitive_key)
 
     def analyze(
         self,
