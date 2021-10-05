@@ -14,11 +14,20 @@ class TextAnalyzer(BaseText):
             documents = [documents]
         return documents
 
+    @staticmethod
+    def _read_text(path):
+        with open(path, "r") as file:
+            text = file.read()
+        return text
+
     def detect_language(
         self,
-        documents: Union[List[str], str],
+        documents: Union[List[str], str] = None,
+        document_path: str = None,
         country_hint: str = "none",
     ) -> List[Dict]:
+        if document_path is not None:
+            documents = self._read_text(document_path)
         documents = self._parse_docs(documents)
         try:
             response = self.service_client.detect_language(
@@ -36,8 +45,11 @@ class TextAnalyzer(BaseText):
 
     def sentiment_analysis(
         self,
-        documents: Union[str, List[str]],
+        documents: Union[str, List[str]] = None,
+        document_path: str = None,
     ) -> List[Dict]:
+        if document_path is not None:
+            documents = self._read_text(document_path)
         documents = self._parse_docs(documents)
         response = self.service_client.analyze_sentiment(documents=documents)
         result = []
@@ -72,12 +84,24 @@ class TextAnalyzer(BaseText):
 
         return result
 
-    def key_phrases(self, documents: Union[str, List[str]]) -> List[List[str]]:
+    def key_phrases(
+        self,
+        documents: Union[str, List[str]] = None,
+        document_path: str = None,
+    ) -> List[List[str]]:
+        if document_path is not None:
+            documents = self._read_text(document_path)
         documents = self._parse_docs(documents)
         response = self.service_client.extract_key_phrases(documents=documents)
         return [resp.key_phrases for resp in response]
 
-    def entities(self, documents: Union[str, List[str]]) -> List[List[str]]:
+    def entities(
+        self,
+        documents: Union[str, List[str]] = None,
+        document_path: str = None,
+    ) -> List[List[str]]:
+        if document_path is not None:
+            documents = self._read_text(document_path)
         documents = self._parse_docs(documents)
         response = self.service_client.recognize_entities(documents=documents)
         result = []
@@ -95,7 +119,13 @@ class TextAnalyzer(BaseText):
             )
         return result
 
-    def analyze(self, documents: Union[str, List[str]]) -> Dict:
+    def analyze(
+        self,
+        documents: Union[str, List[str]] = None,
+        document_path: str = None,
+    ) -> Dict:
+        if document_path is not None:
+            documents = self._read_text(document_path)
         return {
             "language": self.detect_language(documents),
             "sentiment": self.sentiment_analysis(documents),
