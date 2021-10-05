@@ -10,7 +10,7 @@ load_dotenv()
 key = os.getenv("SERVICE_KEY")
 endpoint = os.getenv("ENDPOINT")
 
-# Text Analyzer:
+# Text Detector:
 image_url = "https://d2jaiao3zdxbzm.cloudfront.net/wp-content/uploads/figure-65.png"
 image_path = "/Users/lruokolainen/Downloads/figure-65.png"
 
@@ -29,10 +29,8 @@ AV.analyze(image_url=image_url, features=["description"])
 obj = AV.analyze(image_url=image_url, features=["objects"])
 
 # Object Detector:
-image_dir = "test_images"
-OD = ObjectDetector(service_key=key, service_endpoint=endpoint)
-result = OD.analyze(image_dir=image_dir)
-
+OD = ObjectDetector(cognitive_key=key, service_endpoint=endpoint)
+result = OD.analyze(image_url=image_url)
 OD.get_parents(result)
 OD.count(result, confidence=0.5)
 

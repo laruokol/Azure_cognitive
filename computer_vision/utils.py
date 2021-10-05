@@ -37,11 +37,13 @@ def analyze_image(
         ).as_dict()
     elif image_dir is not None:
         files = [f for f in os.listdir(image_dir) if not f.startswith(".")]
-        result = {}
+        result = []
         for file in files:
             with open(os.path.join(image_dir, file), "rb") as image_stream:
-                result[file] = service_client.analyze_image_in_stream(
-                    image_stream, visual_features=features, **kwargs
-                ).as_dict()
+                result.append(
+                    service_client.analyze_image_in_stream(
+                        image_stream, visual_features=features, **kwargs
+                    ).as_dict()
+                )
 
     return result

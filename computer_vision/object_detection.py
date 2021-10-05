@@ -2,6 +2,7 @@ from computer_vision.vision_base import BaseVision
 from computer_vision.utils import analyze_image
 from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
 from collections import Counter
+from typing import List, Dict, Union
 
 
 class ObjectDetector(BaseVision):
@@ -16,7 +17,7 @@ class ObjectDetector(BaseVision):
         image_dir: str = None,
         image_url: str = None,
         **kwargs
-    ):
+    ) -> Union[Dict, List]:
 
         return analyze_image(
             self.service_client,
@@ -28,21 +29,29 @@ class ObjectDetector(BaseVision):
         )
 
     @staticmethod
-    def get_parents(result):
-        return {
-            k: [o["parent"] for o in v["objects"] if "parent" in o]
-            for k, v in result.items()
-        }
+    def get_parents(result: Union[Dict, List]) -> List:
+        if isinstance(result, dict):
+            result = [result]
+        return [
+            [
+                {"request_id": v["request_id"], "parent": o["parent"]}
+                for o in v["objects"]
+                if "parent" in o
+            ]
+            for v in result
+        ]
 
     @staticmethod
     def count(result, confidence: float = 0.5):
-        return {
-            k: Counter(
+        if isinstance(result, dict):
+            result = [result]
+        return [
+            Counter(
                 [
                     o["object_property"]
                     for o in v["objects"]
                     if o["confidence"] > confidence
                 ]
             )
-            for k, v in result.items()
-        }
+            for v in result
+        ]
