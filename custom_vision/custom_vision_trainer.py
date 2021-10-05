@@ -17,6 +17,8 @@ from custom_vision.utils import (
 
 
 class CustomVisionTrainer:
+    """Trainer class for Azure Custom Vision API"""
+
     def __init__(self, training_key, endpoint, project_name):
         # Authenticate:
         self.credentials = ApiKeyCredentials(in_headers={"Training-key": training_key})

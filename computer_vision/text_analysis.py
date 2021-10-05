@@ -4,9 +4,7 @@ import os
 
 
 class TextDetector(BaseVision):
-    """
-    Help.
-    """
+    """Text recognition usign Azure Computer Vision API"""
 
     def __init__(self, service_key: str, service_endpoint: str) -> None:
         super().__init__(service_key, service_endpoint)

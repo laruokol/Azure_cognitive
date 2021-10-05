@@ -6,6 +6,8 @@ from custom_vision.utils import classify_images
 
 
 class CustomVisionPredictor:
+    """Predictor class for Azure Custom Vision API"""
+
     def __init__(
         self,
         predoction_key: str,

@@ -3,6 +3,8 @@ from typing import List, Union
 
 
 class TextTranslator:
+    """Text translation using Azure Translator API"""
+
     def __init__(
         self,
         service_key: str,

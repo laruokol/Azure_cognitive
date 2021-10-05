@@ -3,6 +3,8 @@ from typing import List, Union, Dict
 
 
 class TextAnalyzer(BaseText):
+    """Text analysis using Azure Text API"""
+
     def __init__(
         self, service_endpoint: str, service_key: str = None, cognitive_key: str = None
     ):

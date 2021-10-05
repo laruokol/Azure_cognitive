@@ -3,6 +3,8 @@ from speech.utils import translate_speech_to_text
 
 
 class SpeechAnalyzer:
+    """Speech analysis using Azure Speech API"""
+
     def __init__(self, service_key: str, service_location: str = "northeurope"):
         self.config = speechsdk.translation.SpeechTranslationConfig(
             subscription=service_key, region=service_location

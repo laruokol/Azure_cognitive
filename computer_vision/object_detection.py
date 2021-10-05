@@ -6,6 +6,8 @@ from typing import List, Dict, Union
 
 
 class ObjectDetector(BaseVision):
+    """Object detection with Azure Computer Vision API"""
+
     def __init__(
         self, service_endpoint: str, service_key: str = None, cognitive_key: str = None
     ) -> None:
